@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>元素図鑑｜118種類の「元素」を知ろう！</title>
+  <style>
+    :root {
+      --bg-1: #fffaf0;
+      --bg-2: #f9f4ff;
+      --text: #374151;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --shadow: 0 8px 22px rgba(71, 85, 105, 0.12);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --border: #f1f5f9;
+
+      --metal: #9cc3ff;
+      --nonmetal: #9be7c4;
+      --metalloid: #f7d58b;
+      --noble: #d6b6ff;
+      --alkali: #ffb3b3;
+      --alkaline: #ffd6a8;
+      --halogen: #b8e6ff;
+      --gas: #b9e6ff;
+      --liquid: #90cdf4;
+      --solid: #d4d4d8;
+      --all: #cbd5e1;
+
+      --progress-track: #f3e8ff;
+      --progress-fill: linear-gradient(90deg, #f9a8d4, #a78bfa, #60a5fa);
+
+      --phone-max: 460px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    }
+
+    .progress-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--progress-track);
+      z-index: 999;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--progress-fill);
+      transition: width 0.12s ease-out;
+    }
+
+    .shell {
+      max-width: var(--phone-max);
+      margin: 0 auto;
+      min-height: 100svh;
+      padding: 14px 14px 88px;
+      position: relative;
+    }
+
+    .floating-deco {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0.25;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .bubble:nth-child(1) { top: 12%; left: 4%; }
+    .bubble:nth-child(2) { top: 26%; right: 6%; animation-delay: .8s; }
+    .bubble:nth-child(3) { top: 52%; left: 3%; animation-delay: 1.7s; }
+    .bubble:nth-child(4) { top: 66%; right: 7%; animation-delay: 2.6s; }
+    .bubble:nth-child(5) { top: 82%; left: 12%; animation-delay: 3.4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(4deg); }
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      margin-top: 18px;
+      text-align: center;
+      background: linear-gradient(180deg, #fff, #fff7fb);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 2.15rem);
+      letter-spacing: 0.03em;
+      color: #ec4899;
+    }
+
+    .hero .sub {
+      margin: 8px 0 6px;
+      font-size: 1rem;
+      color: #7c3aed;
+      font-weight: 700;
+    }
+
+    .hero .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: .97rem;
+      line-height: 1.6;
+    }
+
+    .mascots {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      font-size: 1.8rem;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .title-row h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #334155;
+    }
+
+    .page-chip {
+      background: #ede9fe;
+      color: #5b21b6;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .8rem;
+      border: 1px solid #ddd6fe;
+      white-space: nowrap;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: #334155;
+      background: #f8fafc;
+    }
+
+    .chip.metal { background: #e6f0ff; border-color: #c8dcff; }
+    .chip.nonmetal { background: #e8fbf2; border-color: #c7f0de; }
+    .chip.metalloid { background: #fff4dc; border-color: #ffe4ac; }
+    .chip.noble { background: #f1e9ff; border-color: #dfccff; }
+    .chip.gas { background: #e8f7ff; border-color: #cceeff; }
+    .chip.liquid { background: #dff2ff; border-color: #bfe6ff; }
+    .chip.solid { background: #f2f4f7; border-color: #e4e7ec; }
+
+    .howto ol {
+      margin: 10px 0 0;
+      padding-left: 1.2rem;
+      line-height: 1.8;
+      color: #475569;
+      font-size: .95rem;
+    }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+    }
+
+    .search {
+      width: 100%;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 12px 13px;
+      font-size: 1rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .search:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: thin;
+    }
+
+    .filter-btn {
+      border: 1px solid #dbe4f0;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: #475569;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      color: #4c1d95;
+      background: #ede9fe;
+      border-color: #c4b5fd;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 720px) {
+      .shell {
+        max-width: 920px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .shell {
+        max-width: 1100px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--white);
+      border: 2px solid #e2e8f0;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-inner {
+      padding: 14px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .atom-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: .83rem;
+      font-weight: 800;
+      color: #1e293b;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+      flex-shrink: 0;
+    }
+
+    .symbol {
+      font-size: 2.45rem;
+      font-weight: 900;
+      line-height: 1;
+      margin: 4px 0;
+      color: #0f172a;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 1.03rem;
+      font-weight: 800;
+      color: #1f2937;
+    }
+
+    .emoji {
+      font-size: 1.8rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 2px rgba(15, 23, 42, .15));
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0 8px;
+    }
+
+    .mini {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 11px;
+      padding: 8px;
+      font-size: .82rem;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .mini b {
+      color: #0f172a;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      font-size: .75rem;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid;
+      color: #334155;
+      background: #fff;
+    }
+
+    .feature {
+      margin: 0;
+      font-size: .9rem;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    .feature b {
+      color: #111827;
+    }
+
+    .toggle {
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 12px;
+      padding: 9px 11px;
+      font-size: .86rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .details.open {
+      max-height: 320px;
+    }
+
+    .detail-box {
+      margin-top: 10px;
+      border-top: 1px dashed #dbe4f0;
+      padding-top: 10px;
+      display: grid;
+      gap: 8px;
+      font-size: .86rem;
+      color: #334155;
+      line-height: 1.55;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .empty {
+      text-align: center;
+      color: #64748b;
+      padding: 18px;
+      background: #f8fafc;
+      border: 1px dashed #dbe4f0;
+      border-radius: 14px;
+      font-weight: 700;
+    }
+
+    .next {
+      text-align: center;
+      font-weight: 800;
+      color: #7c3aed;
+      line-height: 1.7;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid #ddd6fe;
+      background: linear-gradient(180deg, #fff, #f5f3ff);
+      color: #6d28d9;
+      font-size: 1.35rem;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 99;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: .24s ease;
+    }
+
+    .to-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-wrap" aria-hidden="true">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <div class="floating-deco" aria-hidden="true">
+    <span class="bubble">✨</span>
+    <span class="bubble">🫧</span>
+    <span class="bubble">💖</span>
+    <span class="bubble">⭐</span>
+    <span class="bubble">🧪</span>
+  </div>
+
+  <main class="shell">
+    <section class="section hero reveal">
+      <h1>元素図鑑</h1>
+      <p class="sub">118種類の「元素」を知ろう！</p>
+      <p class="desc">すべての物質は、<b>元素（げんそ）</b>からできているよ！</p>
+      <div class="mascots" aria-label="かわいいマスコット">
+        <span role="img" aria-label="くま">🧸</span>
+        <span role="img" aria-label="ペンギン">🐧</span>
+        <span role="img" aria-label="フラスコ">⚗️</span>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="title-row">
+        <h2>凡例（はんれい）</h2>
+        <span class="page-chip" aria-label="ページ番号">1 / 6</span>
+      </div>
+      <div class="chips" aria-label="色分けラベル">
+        <span class="chip metal">金属</span>
+        <span class="chip nonmetal">非金属</span>
+        <span class="chip metalloid">準金属</span>
+        <span class="chip noble">希ガス</span>
+        <span class="chip gas">気体</span>
+        <span class="chip liquid">液体</span>
+        <span class="chip solid">固体</span>
+      </div>
+    </section>
+
+    <section class="section howto reveal">
+      <h2>この図鑑の見方</h2>
+      <ol>
+        <li>① 元素名と記号</li>
+        <li>② 原子番号・原子量</li>
+        <li>③ 分類と状態</li>
+        <li>④ 特徴（とくちょう）</li>
+        <li>⑤ 身近な例（みぢかなれい）</li>
+        <li>⑥ 使われ方（つかわれかた）</li>
+      </ol>
+    </section>
+
+    <section class="section controls reveal" aria-labelledby="toolTitle">
+      <h2 id="toolTitle">さがしてみよう</h2>
+      <label for="search" class="sr-only">元素を検索</label>
+      <input id="search" class="search" type="search" placeholder="元素名・記号・分類で検索（例：酸素 / O / 非金属）" aria-label="元素名や記号で検索" />
+      <div id="filters" class="filters" role="group" aria-label="分類フィルター"></div>
+    </section>
+
+    <section class="section reveal">
+      <h2>元素カード一覧（12種類）</h2>
+      <div id="cards" class="cards" aria-live="polite"></div>
+      <p id="empty" class="empty" hidden>見つからなかったよ。検索ワードをかえてみよう！</p>
+    </section>
+
+    <section class="section reveal">
+      <p class="next">次のページでは、さらに12種類の元素を紹介するよ！</p>
+    </section>
+  </main>
+
+  <button id="toTop" class="to-top" aria-label="上にもどる">⬆</button>
+
+  <script>
+    const elements = [
+      {name:"水素", symbol:"H", number:1, mass:"1.008", category:"非金属", state:"気体", feature:"宇宙でいちばん多く存在する、とても軽い元素。", examples:["水","太陽"], uses:["ロケット燃料","水素エネルギー","化学製品の原料"], emoji:"💧", trivia:"水素は水（H2O）の材料のひとつだよ。"},
+      {name:"ヘリウム", symbol:"He", number:2, mass:"4.0026", category:"希ガス", state:"気体", feature:"空気より軽く、燃えたり反応したりしにくい安全な気体。", examples:["風船","ヘリウムガス"], uses:["風船をふくらませる","気球","MRIなどの冷却材"], emoji:"🎈", trivia:"吸いこむと声が高くなることで有名だけど、まねは危険！"},
+      {name:"リチウム", symbol:"Li", number:3, mass:"6.94", category:"アルカリ金属", state:"固体", feature:"とても軽くてやわらかい金属。", examples:["充電式電池","携帯ゲーム機"], uses:["リチウムイオン電池","薬の材料","ガラスや陶器の原料"], emoji:"🔋", trivia:"スマホやタブレットの電池にもよく使われるよ。"},
+      {name:"ベリリウム", symbol:"Be", number:4, mass:"9.0122", category:"アルカリ土類金属", state:"固体", feature:"軽くて丈夫だが、扱いには注意が必要な金属。", examples:["宝石","宇宙の岩石"], uses:["航空機の部品","X線の窓","宇宙機器の材料"], emoji:"💎", trivia:"とてもかたい性質があるため、特別な部品に使われるよ。"},
+      {name:"ホウ素", symbol:"B", number:5, mass:"10.81", category:"準金属", state:"固体", feature:"熱や電気を通しにくい性質をもつ元素。", examples:["ホウ砂","ガラス"], uses:["ガラスやセラミックの材料","洗剤","農業の原料"], emoji:"🧪", trivia:"植物の成長にとっても大切なミネラルのひとつ。"},
+      {name:"炭素", symbol:"C", number:6, mass:"12.011", category:"非金属", state:"固体", feature:"すべての生き物の体をつくる、とても大切な元素。", examples:["鉛筆の芯","ダイヤモンド"], uses:["燃料","プラスチック","ダイヤモンドの研磨"], emoji:"✏️", trivia:"同じ炭素でも、ならび方で黒えんぴつやダイヤになるよ。"},
+      {name:"窒素", symbol:"N", number:7, mass:"14.007", category:"非金属", state:"気体", feature:"空気の約78％をしめる、身近な気体。", examples:["空気","肥料"], uses:["肥料","冷凍食品の保存","液体窒素による冷却"], emoji:"☁️", trivia:"液体窒素はとても低い温度で、実験や保存に使われるよ。"},
+      {name:"酸素", symbol:"O", number:8, mass:"15.999", category:"非金属", state:"気体", feature:"ものを燃やすはたらきを助け、生き物の呼吸に必要な元素。", examples:["空気","水"], uses:["医療用酸素","鉄を燃やす実験","化学工業の原料"], emoji:"🫧", trivia:"酸素があるから、ろうそくはよく燃えるんだ。"},
+      {name:"フッ素", symbol:"F", number:9, mass:"18.998", category:"ハロゲン", state:"気体", feature:"とても反応しやすく、強い性質をもつ元素。", examples:["歯みがき粉","フッ素加工"], uses:["むし歯予防","フッ素樹脂","表面加工"], emoji:"🪥", trivia:"歯の表面を強くするため、歯みがき粉にも入っているよ。"},
+      {name:"ネオン", symbol:"Ne", number:10, mass:"20.180", category:"希ガス", state:"気体", feature:"とても安定していて、ほかの元素と反応しにくい元素。", examples:["ネオンサイン","電光掲示板"], uses:["ネオンサイン","高電圧ランプ","表示装置"], emoji:"💡", trivia:"電気を通すと、ネオンは明るい色で光るよ。"},
+      {name:"ナトリウム", symbol:"Na", number:11, mass:"22.990", category:"アルカリ金属", state:"固体", feature:"水とよく反応して、熱や光を出すことがある金属。", examples:["食塩","海の水"], uses:["食塩","石けんの原料","ナトリウムランプ"], emoji:"🧂", trivia:"食塩はナトリウムと塩素がくっついた化合物だよ。"},
+      {name:"マグネシウム", symbol:"Mg", number:12, mass:"24.305", category:"アルカリ土類金属", state:"固体", feature:"軽くて丈夫で、燃えるとまぶしい光を出す金属。", examples:["花火","金属のかたまり"], uses:["花火","飛行機や車の部品","マグネシウム合金"], emoji:"🎆", trivia:"軽いから、のりものを軽量化する材料として活やく。"}
+    ];
+
+    const categoryColors = {
+      "非金属": "var(--nonmetal)",
+      "希ガス": "var(--noble)",
+      "アルカリ金属": "var(--alkali)",
+      "アルカリ土類金属": "var(--alkaline)",
+      "準金属": "var(--metalloid)",
+      "ハロゲン": "var(--halogen)"
+    };
+
+    const filterList = ["すべて", "非金属", "希ガス", "アルカリ金属", "アルカリ土類金属", "準金属", "ハロゲン"];
+
+    const cardsEl = document.getElementById("cards");
+    const emptyEl = document.getElementById("empty");
+    const searchEl = document.getElementById("search");
+    const filtersEl = document.getElementById("filters");
+    const progressBar = document.getElementById("progressBar");
+    const topBtn = document.getElementById("toTop");
+
+    let currentFilter = "すべて";
+
+    function makeFilterButtons() {
+      filtersEl.innerHTML = "";
+      filterList.forEach((filter) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "filter-btn" + (filter === currentFilter ? " active" : "");
+        btn.textContent = filter;
+        btn.setAttribute("aria-label", `分類フィルター ${filter}`);
+        btn.addEventListener("click", () => {
+          currentFilter = filter;
+          makeFilterButtons();
+          renderCards();
+        });
+        filtersEl.appendChild(btn);
+      });
+    }
+
+    function createCard(item) {
+      const color = categoryColors[item.category] || "var(--all)";
+      const article = document.createElement("article");
+      article.className = "card";
+      article.style.borderColor = color;
+
+      article.innerHTML = `
+        <div class="card-inner">
+          <div class="card-head">
+            <div>
+              <p class="name">${item.name}</p>
+              <div class="symbol" aria-label="元素記号">${item.symbol}</div>
+            </div>
+            <div class="emoji" aria-hidden="true">${item.emoji}</div>
+          </div>
+
+          <div class="kv">
+            <div class="mini"><b>原子番号</b><br><span class="atom-badge" style="background:${color};">${item.number}</span></div>
+            <div class="mini"><b>原子量</b><br>${item.mass}</div>
+          </div>
+
+          <div class="tags">
+            <span class="tag" style="border-color:${color};background:color-mix(in srgb, ${color} 35%, #fff);">分類：${item.category}</span>
+            <span class="tag">状態：${item.state}</span>
+          </div>
+
+          <p class="feature"><b>特徴：</b>${item.feature}</p>
+
+          <button class="toggle" type="button" aria-label="${item.name}の詳細を開く">くわしく見る ▼</button>
+          <div class="details" aria-hidden="true">
+            <div class="detail-box">
+              <div><b>身近な例：</b>${item.examples.join("、")}</div>
+              <div><b>使われ方：</b>
+                <ul class="list">${item.uses.map(use => `<li>${use}</li>`).join("")}</ul>
+              </div>
+              <div><b>豆知識：</b>${item.trivia}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const btn = article.querySelector(".toggle");
+      const details = article.querySelector(".details");
+
+      btn.addEventListener("click", () => {
+        const isOpen = details.classList.toggle("open");
+        details.setAttribute("aria-hidden", String(!isOpen));
+        btn.textContent = isOpen ? "とじる ▲" : "くわしく見る ▼";
+        btn.setAttribute("aria-label", `${item.name}の詳細を${isOpen ? "閉じる" : "開く"}`);
+      });
+
+      return article;
+    }
+
+    function renderCards() {
+      const q = searchEl.value.trim().toLowerCase();
+      const filtered = elements.filter((el) => {
+        const matchFilter = currentFilter === "すべて" || el.category === currentFilter;
+        const matchSearch =
+          !q ||
+          el.name.toLowerCase().includes(q) ||
+          el.symbol.toLowerCase().includes(q) ||
+          el.category.toLowerCase().includes(q);
+        return matchFilter && matchSearch;
+      });
+
+      cardsEl.innerHTML = "";
+      filtered.forEach((item) => cardsEl.appendChild(createCard(item)));
+      emptyEl.hidden = filtered.length > 0;
+    }
+
+    function updateProgress() {
+      const top = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? (top / total) * 100 : 0;
+      progressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+
+      if (top > 360) {
+        topBtn.classList.add("show");
+      } else {
+        topBtn.classList.remove("show");
+      }
+    }
+
+    function setupReveal() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach((sec) => io.observe(sec));
+    }
+
+    searchEl.addEventListener("input", renderCards);
+    topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    makeFilterButtons();
+    renderCards();
+    setupReveal();
+    updateProgress();
+  </script>
+</body>
+</html>
