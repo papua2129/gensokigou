@@ -545,7 +545,7 @@
     </section>
 
     <section class="section reveal">
-      <h2>元素カード一覧（12種類）</h2>
+      <h2>元素カード一覧（118種類）</h2>
       <div id="cards" class="cards" aria-live="polite"></div>
       <p id="empty" class="empty" hidden>見つからなかったよ。検索ワードをかえてみよう！</p>
     </section>
@@ -558,20 +558,167 @@
   <button id="toTop" class="to-top" aria-label="上にもどる">⬆</button>
 
   <script>
-    const elements = [
-      {name:"水素", symbol:"H", number:1, mass:"1.008", category:"非金属", state:"気体", feature:"宇宙でいちばん多く存在する、とても軽い元素。", examples:["水","太陽"], uses:["ロケット燃料","水素エネルギー","化学製品の原料"], emoji:"💧", trivia:"水素は水（H2O）の材料のひとつだよ。"},
-      {name:"ヘリウム", symbol:"He", number:2, mass:"4.0026", category:"希ガス", state:"気体", feature:"空気より軽く、燃えたり反応したりしにくい安全な気体。", examples:["風船","ヘリウムガス"], uses:["風船をふくらませる","気球","MRIなどの冷却材"], emoji:"🎈", trivia:"吸いこむと声が高くなることで有名だけど、まねは危険！"},
-      {name:"リチウム", symbol:"Li", number:3, mass:"6.94", category:"アルカリ金属", state:"固体", feature:"とても軽くてやわらかい金属。", examples:["充電式電池","携帯ゲーム機"], uses:["リチウムイオン電池","薬の材料","ガラスや陶器の原料"], emoji:"🔋", trivia:"スマホやタブレットの電池にもよく使われるよ。"},
-      {name:"ベリリウム", symbol:"Be", number:4, mass:"9.0122", category:"アルカリ土類金属", state:"固体", feature:"軽くて丈夫だが、扱いには注意が必要な金属。", examples:["宝石","宇宙の岩石"], uses:["航空機の部品","X線の窓","宇宙機器の材料"], emoji:"💎", trivia:"とてもかたい性質があるため、特別な部品に使われるよ。"},
-      {name:"ホウ素", symbol:"B", number:5, mass:"10.81", category:"準金属", state:"固体", feature:"熱や電気を通しにくい性質をもつ元素。", examples:["ホウ砂","ガラス"], uses:["ガラスやセラミックの材料","洗剤","農業の原料"], emoji:"🧪", trivia:"植物の成長にとっても大切なミネラルのひとつ。"},
-      {name:"炭素", symbol:"C", number:6, mass:"12.011", category:"非金属", state:"固体", feature:"すべての生き物の体をつくる、とても大切な元素。", examples:["鉛筆の芯","ダイヤモンド"], uses:["燃料","プラスチック","ダイヤモンドの研磨"], emoji:"✏️", trivia:"同じ炭素でも、ならび方で黒えんぴつやダイヤになるよ。"},
-      {name:"窒素", symbol:"N", number:7, mass:"14.007", category:"非金属", state:"気体", feature:"空気の約78％をしめる、身近な気体。", examples:["空気","肥料"], uses:["肥料","冷凍食品の保存","液体窒素による冷却"], emoji:"☁️", trivia:"液体窒素はとても低い温度で、実験や保存に使われるよ。"},
-      {name:"酸素", symbol:"O", number:8, mass:"15.999", category:"非金属", state:"気体", feature:"ものを燃やすはたらきを助け、生き物の呼吸に必要な元素。", examples:["空気","水"], uses:["医療用酸素","鉄を燃やす実験","化学工業の原料"], emoji:"🫧", trivia:"酸素があるから、ろうそくはよく燃えるんだ。"},
-      {name:"フッ素", symbol:"F", number:9, mass:"18.998", category:"ハロゲン", state:"気体", feature:"とても反応しやすく、強い性質をもつ元素。", examples:["歯みがき粉","フッ素加工"], uses:["むし歯予防","フッ素樹脂","表面加工"], emoji:"🪥", trivia:"歯の表面を強くするため、歯みがき粉にも入っているよ。"},
-      {name:"ネオン", symbol:"Ne", number:10, mass:"20.180", category:"希ガス", state:"気体", feature:"とても安定していて、ほかの元素と反応しにくい元素。", examples:["ネオンサイン","電光掲示板"], uses:["ネオンサイン","高電圧ランプ","表示装置"], emoji:"💡", trivia:"電気を通すと、ネオンは明るい色で光るよ。"},
-      {name:"ナトリウム", symbol:"Na", number:11, mass:"22.990", category:"アルカリ金属", state:"固体", feature:"水とよく反応して、熱や光を出すことがある金属。", examples:["食塩","海の水"], uses:["食塩","石けんの原料","ナトリウムランプ"], emoji:"🧂", trivia:"食塩はナトリウムと塩素がくっついた化合物だよ。"},
-      {name:"マグネシウム", symbol:"Mg", number:12, mass:"24.305", category:"アルカリ土類金属", state:"固体", feature:"軽くて丈夫で、燃えるとまぶしい光を出す金属。", examples:["花火","金属のかたまり"], uses:["花火","飛行機や車の部品","マグネシウム合金"], emoji:"🎆", trivia:"軽いから、のりものを軽量化する材料として活やく。"}
+    const detailOverrides = {
+      1:{feature:"宇宙でいちばん多く存在する、とても軽い元素。", examples:["水","太陽"], uses:["ロケット燃料","水素エネルギー","化学製品の原料"], emoji:"💧", trivia:"水素は水（H2O）の材料のひとつだよ。"},
+      2:{feature:"空気より軽く、燃えたり反応したりしにくい安全な気体。", examples:["風船","ヘリウムガス"], uses:["風船をふくらませる","気球","MRIなどの冷却材"], emoji:"🎈", trivia:"吸いこむと声が高くなることで有名だけど、まねは危険！"},
+      3:{feature:"とても軽くてやわらかい金属。", examples:["充電式電池","携帯ゲーム機"], uses:["リチウムイオン電池","薬の材料","ガラスや陶器の原料"], emoji:"🔋", trivia:"スマホやタブレットの電池にもよく使われるよ。"},
+      4:{feature:"軽くて丈夫だが、扱いには注意が必要な金属。", examples:["宝石","宇宙の岩石"], uses:["航空機の部品","X線の窓","宇宙機器の材料"], emoji:"💎", trivia:"とてもかたい性質があるため、特別な部品に使われるよ。"},
+      5:{feature:"熱や電気を通しにくい性質をもつ元素。", examples:["ホウ砂","ガラス"], uses:["ガラスやセラミックの材料","洗剤","農業の原料"], emoji:"🧪", trivia:"植物の成長にとっても大切なミネラルのひとつ。"},
+      6:{feature:"すべての生き物の体をつくる、とても大切な元素。", examples:["鉛筆の芯","ダイヤモンド"], uses:["燃料","プラスチック","ダイヤモンドの研磨"], emoji:"✏️", trivia:"同じ炭素でも、ならび方で黒えんぴつやダイヤになるよ。"},
+      7:{feature:"空気の約78％をしめる、身近な気体。", examples:["空気","肥料"], uses:["肥料","冷凍食品の保存","液体窒素による冷却"], emoji:"☁️", trivia:"液体窒素はとても低い温度で、実験や保存に使われるよ。"},
+      8:{feature:"ものを燃やすはたらきを助け、生き物の呼吸に必要な元素。", examples:["空気","水"], uses:["医療用酸素","鉄を燃やす実験","化学工業の原料"], emoji:"🫧", trivia:"酸素があるから、ろうそくはよく燃えるんだ。"},
+      9:{feature:"とても反応しやすく、強い性質をもつ元素。", examples:["歯みがき粉","フッ素加工"], uses:["むし歯予防","フッ素樹脂","表面加工"], emoji:"🪥", trivia:"歯の表面を強くするため、歯みがき粉にも入っているよ。"},
+      10:{feature:"とても安定していて、ほかの元素と反応しにくい元素。", examples:["ネオンサイン","電光掲示板"], uses:["ネオンサイン","高電圧ランプ","表示装置"], emoji:"💡", trivia:"電気を通すと、ネオンは明るい色で光るよ。"},
+      11:{feature:"水とよく反応して、熱や光を出すことがある金属。", examples:["食塩","海の水"], uses:["食塩","石けんの原料","ナトリウムランプ"], emoji:"🧂", trivia:"食塩はナトリウムと塩素がくっついた化合物だよ。"},
+      12:{feature:"軽くて丈夫で、燃えるとまぶしい光を出す金属。", examples:["花火","金属のかたまり"], uses:["花火","飛行機や車の部品","マグネシウム合金"], emoji:"🎆", trivia:"軽いから、のりものを軽量化する材料として活やく。"}
+    };
+
+    const periodicCore = [
+      {number:1,name:"水素",symbol:"H",mass:"1.008",category:"非金属",state:"気体"},
+      {number:2,name:"ヘリウム",symbol:"He",mass:"4.0026",category:"希ガス",state:"気体"},
+      {number:3,name:"リチウム",symbol:"Li",mass:"6.94",category:"アルカリ金属",state:"固体"},
+      {number:4,name:"ベリリウム",symbol:"Be",mass:"9.0122",category:"アルカリ土類金属",state:"固体"},
+      {number:5,name:"ホウ素",symbol:"B",mass:"10.81",category:"準金属",state:"固体"},
+      {number:6,name:"炭素",symbol:"C",mass:"12.011",category:"非金属",state:"固体"},
+      {number:7,name:"窒素",symbol:"N",mass:"14.007",category:"非金属",state:"気体"},
+      {number:8,name:"酸素",symbol:"O",mass:"15.999",category:"非金属",state:"気体"},
+      {number:9,name:"フッ素",symbol:"F",mass:"18.998",category:"ハロゲン",state:"気体"},
+      {number:10,name:"ネオン",symbol:"Ne",mass:"20.180",category:"希ガス",state:"気体"},
+      {number:11,name:"ナトリウム",symbol:"Na",mass:"22.990",category:"アルカリ金属",state:"固体"},
+      {number:12,name:"マグネシウム",symbol:"Mg",mass:"24.305",category:"アルカリ土類金属",state:"固体"},
+      {number:13,name:"アルミニウム",symbol:"Al",mass:"26.982",category:"金属",state:"固体"},
+      {number:14,name:"ケイ素",symbol:"Si",mass:"28.085",category:"準金属",state:"固体"},
+      {number:15,name:"リン",symbol:"P",mass:"30.974",category:"非金属",state:"固体"},
+      {number:16,name:"硫黄",symbol:"S",mass:"32.06",category:"非金属",state:"固体"},
+      {number:17,name:"塩素",symbol:"Cl",mass:"35.45",category:"ハロゲン",state:"気体"},
+      {number:18,name:"アルゴン",symbol:"Ar",mass:"39.948",category:"希ガス",state:"気体"},
+      {number:19,name:"カリウム",symbol:"K",mass:"39.098",category:"アルカリ金属",state:"固体"},
+      {number:20,name:"カルシウム",symbol:"Ca",mass:"40.078",category:"アルカリ土類金属",state:"固体"},
+      {number:21,name:"スカンジウム",symbol:"Sc",mass:"44.956",category:"遷移金属",state:"固体"},
+      {number:22,name:"チタン",symbol:"Ti",mass:"47.867",category:"遷移金属",state:"固体"},
+      {number:23,name:"バナジウム",symbol:"V",mass:"50.942",category:"遷移金属",state:"固体"},
+      {number:24,name:"クロム",symbol:"Cr",mass:"51.996",category:"遷移金属",state:"固体"},
+      {number:25,name:"マンガン",symbol:"Mn",mass:"54.938",category:"遷移金属",state:"固体"},
+      {number:26,name:"鉄",symbol:"Fe",mass:"55.845",category:"遷移金属",state:"固体"},
+      {number:27,name:"コバルト",symbol:"Co",mass:"58.933",category:"遷移金属",state:"固体"},
+      {number:28,name:"ニッケル",symbol:"Ni",mass:"58.693",category:"遷移金属",state:"固体"},
+      {number:29,name:"銅",symbol:"Cu",mass:"63.546",category:"遷移金属",state:"固体"},
+      {number:30,name:"亜鉛",symbol:"Zn",mass:"65.38",category:"遷移金属",state:"固体"},
+      {number:31,name:"ガリウム",symbol:"Ga",mass:"69.723",category:"金属",state:"固体"},
+      {number:32,name:"ゲルマニウム",symbol:"Ge",mass:"72.630",category:"準金属",state:"固体"},
+      {number:33,name:"ヒ素",symbol:"As",mass:"74.922",category:"準金属",state:"固体"},
+      {number:34,name:"セレン",symbol:"Se",mass:"78.971",category:"非金属",state:"固体"},
+      {number:35,name:"臭素",symbol:"Br",mass:"79.904",category:"ハロゲン",state:"液体"},
+      {number:36,name:"クリプトン",symbol:"Kr",mass:"83.798",category:"希ガス",state:"気体"},
+      {number:37,name:"ルビジウム",symbol:"Rb",mass:"85.468",category:"アルカリ金属",state:"固体"},
+      {number:38,name:"ストロンチウム",symbol:"Sr",mass:"87.62",category:"アルカリ土類金属",state:"固体"},
+      {number:39,name:"イットリウム",symbol:"Y",mass:"88.906",category:"遷移金属",state:"固体"},
+      {number:40,name:"ジルコニウム",symbol:"Zr",mass:"91.224",category:"遷移金属",state:"固体"},
+      {number:41,name:"ニオブ",symbol:"Nb",mass:"92.906",category:"遷移金属",state:"固体"},
+      {number:42,name:"モリブデン",symbol:"Mo",mass:"95.95",category:"遷移金属",state:"固体"},
+      {number:43,name:"テクネチウム",symbol:"Tc",mass:"[98]",category:"遷移金属",state:"固体"},
+      {number:44,name:"ルテニウム",symbol:"Ru",mass:"101.07",category:"遷移金属",state:"固体"},
+      {number:45,name:"ロジウム",symbol:"Rh",mass:"102.91",category:"遷移金属",state:"固体"},
+      {number:46,name:"パラジウム",symbol:"Pd",mass:"106.42",category:"遷移金属",state:"固体"},
+      {number:47,name:"銀",symbol:"Ag",mass:"107.87",category:"遷移金属",state:"固体"},
+      {number:48,name:"カドミウム",symbol:"Cd",mass:"112.41",category:"遷移金属",state:"固体"},
+      {number:49,name:"インジウム",symbol:"In",mass:"114.82",category:"金属",state:"固体"},
+      {number:50,name:"スズ",symbol:"Sn",mass:"118.71",category:"金属",state:"固体"},
+      {number:51,name:"アンチモン",symbol:"Sb",mass:"121.76",category:"準金属",state:"固体"},
+      {number:52,name:"テルル",symbol:"Te",mass:"127.60",category:"準金属",state:"固体"},
+      {number:53,name:"ヨウ素",symbol:"I",mass:"126.90",category:"ハロゲン",state:"固体"},
+      {number:54,name:"キセノン",symbol:"Xe",mass:"131.29",category:"希ガス",state:"気体"},
+      {number:55,name:"セシウム",symbol:"Cs",mass:"132.91",category:"アルカリ金属",state:"固体"},
+      {number:56,name:"バリウム",symbol:"Ba",mass:"137.33",category:"アルカリ土類金属",state:"固体"},
+      {number:57,name:"ランタン",symbol:"La",mass:"138.91",category:"ランタノイド",state:"固体"},
+      {number:58,name:"セリウム",symbol:"Ce",mass:"140.12",category:"ランタノイド",state:"固体"},
+      {number:59,name:"プラセオジム",symbol:"Pr",mass:"140.91",category:"ランタノイド",state:"固体"},
+      {number:60,name:"ネオジム",symbol:"Nd",mass:"144.24",category:"ランタノイド",state:"固体"},
+      {number:61,name:"プロメチウム",symbol:"Pm",mass:"[145]",category:"ランタノイド",state:"固体"},
+      {number:62,name:"サマリウム",symbol:"Sm",mass:"150.36",category:"ランタノイド",state:"固体"},
+      {number:63,name:"ユウロピウム",symbol:"Eu",mass:"151.96",category:"ランタノイド",state:"固体"},
+      {number:64,name:"ガドリニウム",symbol:"Gd",mass:"157.25",category:"ランタノイド",state:"固体"},
+      {number:65,name:"テルビウム",symbol:"Tb",mass:"158.93",category:"ランタノイド",state:"固体"},
+      {number:66,name:"ジスプロシウム",symbol:"Dy",mass:"162.50",category:"ランタノイド",state:"固体"},
+      {number:67,name:"ホルミウム",symbol:"Ho",mass:"164.93",category:"ランタノイド",state:"固体"},
+      {number:68,name:"エルビウム",symbol:"Er",mass:"167.26",category:"ランタノイド",state:"固体"},
+      {number:69,name:"ツリウム",symbol:"Tm",mass:"168.93",category:"ランタノイド",state:"固体"},
+      {number:70,name:"イッテルビウム",symbol:"Yb",mass:"173.05",category:"ランタノイド",state:"固体"},
+      {number:71,name:"ルテチウム",symbol:"Lu",mass:"174.97",category:"ランタノイド",state:"固体"},
+      {number:72,name:"ハフニウム",symbol:"Hf",mass:"178.49",category:"遷移金属",state:"固体"},
+      {number:73,name:"タンタル",symbol:"Ta",mass:"180.95",category:"遷移金属",state:"固体"},
+      {number:74,name:"タングステン",symbol:"W",mass:"183.84",category:"遷移金属",state:"固体"},
+      {number:75,name:"レニウム",symbol:"Re",mass:"186.21",category:"遷移金属",state:"固体"},
+      {number:76,name:"オスミウム",symbol:"Os",mass:"190.23",category:"遷移金属",state:"固体"},
+      {number:77,name:"イリジウム",symbol:"Ir",mass:"192.22",category:"遷移金属",state:"固体"},
+      {number:78,name:"白金",symbol:"Pt",mass:"195.08",category:"遷移金属",state:"固体"},
+      {number:79,name:"金",symbol:"Au",mass:"196.97",category:"遷移金属",state:"固体"},
+      {number:80,name:"水銀",symbol:"Hg",mass:"200.59",category:"遷移金属",state:"液体"},
+      {number:81,name:"タリウム",symbol:"Tl",mass:"204.38",category:"金属",state:"固体"},
+      {number:82,name:"鉛",symbol:"Pb",mass:"207.2",category:"金属",state:"固体"},
+      {number:83,name:"ビスマス",symbol:"Bi",mass:"208.98",category:"金属",state:"固体"},
+      {number:84,name:"ポロニウム",symbol:"Po",mass:"[209]",category:"金属",state:"固体"},
+      {number:85,name:"アスタチン",symbol:"At",mass:"[210]",category:"ハロゲン",state:"固体"},
+      {number:86,name:"ラドン",symbol:"Rn",mass:"[222]",category:"希ガス",state:"気体"},
+      {number:87,name:"フランシウム",symbol:"Fr",mass:"[223]",category:"アルカリ金属",state:"固体"},
+      {number:88,name:"ラジウム",symbol:"Ra",mass:"[226]",category:"アルカリ土類金属",state:"固体"},
+      {number:89,name:"アクチニウム",symbol:"Ac",mass:"[227]",category:"アクチノイド",state:"固体"},
+      {number:90,name:"トリウム",symbol:"Th",mass:"232.04",category:"アクチノイド",state:"固体"},
+      {number:91,name:"プロトアクチニウム",symbol:"Pa",mass:"231.04",category:"アクチノイド",state:"固体"},
+      {number:92,name:"ウラン",symbol:"U",mass:"238.03",category:"アクチノイド",state:"固体"},
+      {number:93,name:"ネプツニウム",symbol:"Np",mass:"[237]",category:"アクチノイド",state:"固体"},
+      {number:94,name:"プルトニウム",symbol:"Pu",mass:"[244]",category:"アクチノイド",state:"固体"},
+      {number:95,name:"アメリシウム",symbol:"Am",mass:"[243]",category:"アクチノイド",state:"固体"},
+      {number:96,name:"キュリウム",symbol:"Cm",mass:"[247]",category:"アクチノイド",state:"固体"},
+      {number:97,name:"バークリウム",symbol:"Bk",mass:"[247]",category:"アクチノイド",state:"固体"},
+      {number:98,name:"カリホルニウム",symbol:"Cf",mass:"[251]",category:"アクチノイド",state:"固体"},
+      {number:99,name:"アインスタイニウム",symbol:"Es",mass:"[252]",category:"アクチノイド",state:"固体"},
+      {number:100,name:"フェルミウム",symbol:"Fm",mass:"[257]",category:"アクチノイド",state:"固体"},
+      {number:101,name:"メンデレビウム",symbol:"Md",mass:"[258]",category:"アクチノイド",state:"固体"},
+      {number:102,name:"ノーベリウム",symbol:"No",mass:"[259]",category:"アクチノイド",state:"固体"},
+      {number:103,name:"ローレンシウム",symbol:"Lr",mass:"[266]",category:"アクチノイド",state:"固体"},
+      {number:104,name:"ラザホージウム",symbol:"Rf",mass:"[267]",category:"遷移金属",state:"固体"},
+      {number:105,name:"ドブニウム",symbol:"Db",mass:"[268]",category:"遷移金属",state:"固体"},
+      {number:106,name:"シーボーギウム",symbol:"Sg",mass:"[269]",category:"遷移金属",state:"固体"},
+      {number:107,name:"ボーリウム",symbol:"Bh",mass:"[270]",category:"遷移金属",state:"固体"},
+      {number:108,name:"ハッシウム",symbol:"Hs",mass:"[269]",category:"遷移金属",state:"固体"},
+      {number:109,name:"マイトネリウム",symbol:"Mt",mass:"[278]",category:"遷移金属",state:"固体"},
+      {number:110,name:"ダームスタチウム",symbol:"Ds",mass:"[281]",category:"遷移金属",state:"固体"},
+      {number:111,name:"レントゲニウム",symbol:"Rg",mass:"[282]",category:"遷移金属",state:"固体"},
+      {number:112,name:"コペルニシウム",symbol:"Cn",mass:"[285]",category:"遷移金属",state:"固体"},
+      {number:113,name:"ニホニウム",symbol:"Nh",mass:"[286]",category:"金属",state:"固体"},
+      {number:114,name:"フレロビウム",symbol:"Fl",mass:"[289]",category:"金属",state:"固体"},
+      {number:115,name:"モスコビウム",symbol:"Mc",mass:"[290]",category:"金属",state:"固体"},
+      {number:116,name:"リバモリウム",symbol:"Lv",mass:"[293]",category:"金属",state:"固体"},
+      {number:117,name:"テネシン",symbol:"Ts",mass:"[294]",category:"ハロゲン",state:"固体"},
+      {number:118,name:"オガネソン",symbol:"Og",mass:"[294]",category:"希ガス",state:"気体"}
     ];
+
+    const emojiByCategory = {
+      "非金属": "🌿",
+      "希ガス": "💫",
+      "アルカリ金属": "🔋",
+      "アルカリ土類金属": "🧱",
+      "準金属": "🔬",
+      "ハロゲン": "🧪",
+      "金属": "⚙️",
+      "遷移金属": "🛠️",
+      "ランタノイド": "🌈",
+      "アクチノイド": "☢️"
+    };
+
+    const templates = {
+      "非金属": {feature:"生き物や空気、水に深く関わる大切な元素。", examples:["空気", "自然の中"], uses:["学習実験", "化学製品", "環境の研究"]},
+      "希ガス": {feature:"とても安定していて、反応しにくい仲間。", examples:["放電ランプ", "表示灯"], uses:["照明", "分析機器", "冷却技術"]},
+      "アルカリ金属": {feature:"やわらかく、反応しやすい金属グループ。", examples:["鉱石", "塩類"], uses:["電池", "化学原料", "実験材料"]},
+      "アルカリ土類金属": {feature:"軽くて利用範囲が広い、身近な金属グループ。", examples:["岩石", "ミネラル"], uses:["合金", "建材", "工業材料"]},
+      "準金属": {feature:"金属と非金属の性質をあわせもつ元素。", examples:["半導体", "ガラス"], uses:["電子部品", "材料開発", "工業原料"]},
+      "ハロゲン": {feature:"反応しやすく、化合物として活やくする元素。", examples:["消毒剤", "薬品"], uses:["表面加工", "化学合成", "衛生分野"]},
+      "金属": {feature:"電気や熱を伝えやすく、ものづくりに役立つ元素。", examples:["金属製品", "鉱石"], uses:["機械部品", "建築材料", "電子機器"]},
+      "遷移金属": {feature:"かたく丈夫で、工業や化学で大活躍する金属。", examples:["工具", "コイン"], uses:["合金", "触媒", "構造材料"]},
+      "ランタノイド": {feature:"磁石や発光材料など先端技術で使われる元素。", examples:["磁石", "液晶"], uses:["発光材料", "高性能磁石", "精密機器"]},
+      "アクチノイド": {feature:"多くが放射性をもち、研究で重要な元素。", examples:["研究施設", "燃料材料"], uses:["エネルギー研究", "医療研究", "基礎科学"]}
+    };
 
     const categoryColors = {
       "非金属": "var(--nonmetal)",
@@ -579,10 +726,29 @@
       "アルカリ金属": "var(--alkali)",
       "アルカリ土類金属": "var(--alkaline)",
       "準金属": "var(--metalloid)",
-      "ハロゲン": "var(--halogen)"
+      "ハロゲン": "var(--halogen)",
+      "金属": "var(--metal)",
+      "遷移金属": "#b4c6ff",
+      "ランタノイド": "#ffd4e5",
+      "アクチノイド": "#fecaca"
     };
 
-    const filterList = ["すべて", "非金属", "希ガス", "アルカリ金属", "アルカリ土類金属", "準金属", "ハロゲン"];
+    const elements = periodicCore.map((item) => {
+      const base = templates[item.category] || templates["金属"];
+      const override = detailOverrides[item.number] || {};
+      return {
+        ...item,
+        feature: override.feature || `${item.name}は${base.feature}`,
+        examples: override.examples || base.examples,
+        uses: override.uses || base.uses,
+        emoji: override.emoji || emojiByCategory[item.category] || "🧫",
+        trivia: override.trivia || `原子番号${item.number}番。${item.category}に分類される元素だよ。`
+      };
+    });
+
+    const baseFilterOrder = ["すべて", "非金属", "希ガス", "アルカリ金属", "アルカリ土類金属", "準金属", "ハロゲン"];
+    const extraFilters = [...new Set(elements.map((e) => e.category))].filter((c) => !baseFilterOrder.includes(c));
+    const filterList = [...baseFilterOrder, ...extraFilters];
 
     const cardsEl = document.getElementById("cards");
     const emptyEl = document.getElementById("empty");
@@ -590,6 +756,7 @@
     const filtersEl = document.getElementById("filters");
     const progressBar = document.getElementById("progressBar");
     const topBtn = document.getElementById("toTop");
+
 
     let currentFilter = "すべて";
 
@@ -668,11 +835,7 @@
       const q = searchEl.value.trim().toLowerCase();
       const filtered = elements.filter((el) => {
         const matchFilter = currentFilter === "すべて" || el.category === currentFilter;
-        const matchSearch =
-          !q ||
-          el.name.toLowerCase().includes(q) ||
-          el.symbol.toLowerCase().includes(q) ||
-          el.category.toLowerCase().includes(q);
+        const matchSearch = !q || el.name.toLowerCase().includes(q) || el.symbol.toLowerCase().includes(q) || el.category.toLowerCase().includes(q);
         return matchFilter && matchSearch;
       });
 
