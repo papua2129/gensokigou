@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>元素図鑑｜118種類の「元素」を知ろう！</title>
+  <style>
+    :root {
+      --bg-1: #fffaf0;
+      --bg-2: #f9f4ff;
+      --text: #374151;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --shadow: 0 8px 22px rgba(71, 85, 105, 0.12);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --border: #f1f5f9;
+
+      --metal: #9cc3ff;
+      --nonmetal: #9be7c4;
+      --metalloid: #f7d58b;
+      --noble: #d6b6ff;
+      --alkali: #ffb3b3;
+      --alkaline: #ffd6a8;
+      --halogen: #b8e6ff;
+      --gas: #b9e6ff;
+      --liquid: #90cdf4;
+      --solid: #d4d4d8;
+      --all: #cbd5e1;
+
+      --progress-track: #f3e8ff;
+      --progress-fill: linear-gradient(90deg, #f9a8d4, #a78bfa, #60a5fa);
+
+      --phone-max: 460px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    }
+
+    .progress-wrap {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--progress-track);
+      z-index: 999;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--progress-fill);
+      transition: width 0.12s ease-out;
+    }
+
+    .shell {
+      max-width: var(--phone-max);
+      margin: 0 auto;
+      min-height: 100svh;
+      padding: 14px 14px 88px;
+      position: relative;
+    }
+
+    .floating-deco {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0.25;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .bubble:nth-child(1) { top: 12%; left: 4%; }
+    .bubble:nth-child(2) { top: 26%; right: 6%; animation-delay: .8s; }
+    .bubble:nth-child(3) { top: 52%; left: 3%; animation-delay: 1.7s; }
+    .bubble:nth-child(4) { top: 66%; right: 7%; animation-delay: 2.6s; }
+    .bubble:nth-child(5) { top: 82%; left: 12%; animation-delay: 3.4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(4deg); }
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      margin-top: 18px;
+      text-align: center;
+      background: linear-gradient(180deg, #fff, #fff7fb);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 2.15rem);
+      letter-spacing: 0.03em;
+      color: #ec4899;
+    }
+
+    .hero .sub {
+      margin: 8px 0 6px;
+      font-size: 1rem;
+      color: #7c3aed;
+      font-weight: 700;
+    }
+
+    .hero .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: .97rem;
+      line-height: 1.6;
+    }
+
+    .mascots {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      font-size: 1.8rem;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .title-row h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #334155;
+    }
+
+    .page-chip {
+      background: #ede9fe;
+      color: #5b21b6;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .8rem;
+      border: 1px solid #ddd6fe;
+      white-space: nowrap;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: #334155;
+      background: #f8fafc;
+    }
+
+    .chip.metal { background: #e6f0ff; border-color: #c8dcff; }
+    .chip.nonmetal { background: #e8fbf2; border-color: #c7f0de; }
+    .chip.metalloid { background: #fff4dc; border-color: #ffe4ac; }
+    .chip.noble { background: #f1e9ff; border-color: #dfccff; }
+    .chip.gas { background: #e8f7ff; border-color: #cceeff; }
+    .chip.liquid { background: #dff2ff; border-color: #bfe6ff; }
+    .chip.solid { background: #f2f4f7; border-color: #e4e7ec; }
+
+    .howto ol {
+      margin: 10px 0 0;
+      padding-left: 1.2rem;
+      line-height: 1.8;
+      color: #475569;
+      font-size: .95rem;
+    }
+
+    .controls {
+      display: grid;
+      gap: 10px;
+    }
+
+    .search {
+      width: 100%;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 12px 13px;
+      font-size: 1rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .search:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: thin;
+    }
+
+    .filter-btn {
+      border: 1px solid #dbe4f0;
+      background: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: #475569;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      color: #4c1d95;
+      background: #ede9fe;
+      border-color: #c4b5fd;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 720px) {
+      .shell {
+        max-width: 920px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1080px) {
+      .shell {
+        max-width: 1100px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--white);
+      border: 2px solid #e2e8f0;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-inner {
+      padding: 14px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .atom-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: .83rem;
+      font-weight: 800;
+      color: #1e293b;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+      flex-shrink: 0;
+    }
+
+    .symbol {
+      font-size: 2.45rem;
+      font-weight: 900;
+      line-height: 1;
+      margin: 4px 0;
+      color: #0f172a;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 1.03rem;
+      font-weight: 800;
+      color: #1f2937;
+    }
+
+    .emoji {
+      font-size: 1.8rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 2px rgba(15, 23, 42, .15));
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 10px 0 8px;
+    }
+
+    .mini {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 11px;
+      padding: 8px;
+      font-size: .82rem;
+      line-height: 1.45;
+      color: #334155;
+    }
+
+    .mini b {
+      color: #0f172a;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      font-size: .75rem;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid;
+      color: #334155;
+      background: #fff;
+    }
+
+    .feature {
+      margin: 0;
+      font-size: .9rem;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    .feature b {
+      color: #111827;
+    }
+
+    .toggle {
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-radius: 12px;
+      padding: 9px 11px;
+      font-size: .86rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .details.open {
+      max-height: 320px;
+    }
+
+    .detail-box {
+      margin-top: 10px;
+      border-top: 1px dashed #dbe4f0;
+      padding-top: 10px;
+      display: grid;
+      gap: 8px;
+      font-size: .86rem;
+      color: #334155;
+      line-height: 1.55;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .empty {
+      text-align: center;
+      color: #64748b;
+      padding: 18px;
+      background: #f8fafc;
+      border: 1px dashed #dbe4f0;
+      border-radius: 14px;
+      font-weight: 700;
+    }
+
+    .next {
+      text-align: center;
+      font-weight: 800;
+      color: #7c3aed;
+      line-height: 1.7;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 14px;
+      bottom: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid #ddd6fe;
+      background: linear-gradient(180deg, #fff, #f5f3ff);
+      color: #6d28d9;
+      font-size: 1.35rem;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 99;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: .24s ease;
+    }
+
+    .to-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-wrap" aria-hidden="true">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <div class="floating-deco" aria-hidden="true">
+    <span class="bubble">✨</span>
+    <span class="bubble">🫧</span>
+    <span class="bubble">💖</span>
+    <span class="bubble">⭐</span>
+    <span class="bubble">🧪</span>
+  </div>
+
+  <main class="shell">
+    <section class="section hero reveal">
+      <h1>元素図鑑</h1>
+      <p class="sub">118種類の「元素」を知ろう！</p>
+      <p class="desc">すべての物質は、<b>元素（げんそ）</b>からできているよ！</p>
+      <div class="mascots" aria-label="かわいいマスコット">
+        <span role="img" aria-label="くま">🧸</span>
+        <span role="img" aria-label="ペンギン">🐧</span>
+        <span role="img" aria-label="フラスコ">⚗️</span>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="title-row">
+        <h2>凡例（はんれい）</h2>
+        <span class="page-chip" aria-label="ページ番号">1 / 6</span>
+      </div>
+      <div class="chips" aria-label="色分けラベル">
+        <span class="chip metal">金属</span>
+        <span class="chip nonmetal">非金属</span>
+        <span class="chip metalloid">準金属</span>
+        <span class="chip noble">希ガス</span>
+        <span class="chip gas">気体</span>
+        <span class="chip liquid">液体</span>
+        <span class="chip solid">固体</span>
+      </div>
+    </section>
+
+    <section class="section howto reveal">
+      <h2>この図鑑の見方</h2>
+      <ol>
+        <li>① 元素名と記号</li>
+        <li>② 原子番号・原子量</li>
+        <li>③ 分類と状態</li>
+        <li>④ 特徴（とくちょう）</li>
+        <li>⑤ 身近な例（みぢかなれい）</li>
+        <li>⑥ 使われ方（つかわれかた）</li>
+      </ol>
+    </section>
+
+    <section class="section controls reveal" aria-labelledby="toolTitle">
+      <h2 id="toolTitle">さがしてみよう</h2>
+      <label for="search" class="sr-only">元素を検索</label>
+      <input id="search" class="search" type="search" placeholder="元素名・記号・分類で検索（例：酸素 / O / 非金属）" aria-label="元素名や記号で検索" />
+      <div id="filters" class="filters" role="group" aria-label="分類フィルター"></div>
+    </section>
+
+    <section class="section reveal">
+      <h2>元素カード一覧（118種類）</h2>
+      <div id="cards" class="cards" aria-live="polite"></div>
+      <p id="empty" class="empty" hidden>見つからなかったよ。検索ワードをかえてみよう！</p>
+    </section>
+
+    <section class="section reveal">
+      <p class="next">次のページでは、さらに12種類の元素を紹介するよ！</p>
+    </section>
+  </main>
+
+  <button id="toTop" class="to-top" aria-label="上にもどる">⬆</button>
+
+  <script>
+    const detailOverrides = {
+      1:{feature:"宇宙でいちばん多く存在する、とても軽い元素。", examples:["水","太陽"], uses:["ロケット燃料","水素エネルギー","化学製品の原料"], emoji:"💧", trivia:"水素は水（H2O）の材料のひとつだよ。"},
+      2:{feature:"空気より軽く、燃えたり反応したりしにくい安全な気体。", examples:["風船","ヘリウムガス"], uses:["風船をふくらませる","気球","MRIなどの冷却材"], emoji:"🎈", trivia:"吸いこむと声が高くなることで有名だけど、まねは危険！"},
+      3:{feature:"とても軽くてやわらかい金属。", examples:["充電式電池","携帯ゲーム機"], uses:["リチウムイオン電池","薬の材料","ガラスや陶器の原料"], emoji:"🔋", trivia:"スマホやタブレットの電池にもよく使われるよ。"},
+      4:{feature:"軽くて丈夫だが、扱いには注意が必要な金属。", examples:["宝石","宇宙の岩石"], uses:["航空機の部品","X線の窓","宇宙機器の材料"], emoji:"💎", trivia:"とてもかたい性質があるため、特別な部品に使われるよ。"},
+      5:{feature:"熱や電気を通しにくい性質をもつ元素。", examples:["ホウ砂","ガラス"], uses:["ガラスやセラミックの材料","洗剤","農業の原料"], emoji:"🧪", trivia:"植物の成長にとっても大切なミネラルのひとつ。"},
+      6:{feature:"すべての生き物の体をつくる、とても大切な元素。", examples:["鉛筆の芯","ダイヤモンド"], uses:["燃料","プラスチック","ダイヤモンドの研磨"], emoji:"✏️", trivia:"同じ炭素でも、ならび方で黒えんぴつやダイヤになるよ。"},
+      7:{feature:"空気の約78％をしめる、身近な気体。", examples:["空気","肥料"], uses:["肥料","冷凍食品の保存","液体窒素による冷却"], emoji:"☁️", trivia:"液体窒素はとても低い温度で、実験や保存に使われるよ。"},
+      8:{feature:"ものを燃やすはたらきを助け、生き物の呼吸に必要な元素。", examples:["空気","水"], uses:["医療用酸素","鉄を燃やす実験","化学工業の原料"], emoji:"🫧", trivia:"酸素があるから、ろうそくはよく燃えるんだ。"},
+      9:{feature:"とても反応しやすく、強い性質をもつ元素。", examples:["歯みがき粉","フッ素加工"], uses:["むし歯予防","フッ素樹脂","表面加工"], emoji:"🪥", trivia:"歯の表面を強くするため、歯みがき粉にも入っているよ。"},
+      10:{feature:"とても安定していて、ほかの元素と反応しにくい元素。", examples:["ネオンサイン","電光掲示板"], uses:["ネオンサイン","高電圧ランプ","表示装置"], emoji:"💡", trivia:"電気を通すと、ネオンは明るい色で光るよ。"},
+      11:{feature:"水とよく反応して、熱や光を出すことがある金属。", examples:["食塩","海の水"], uses:["食塩","石けんの原料","ナトリウムランプ"], emoji:"🧂", trivia:"食塩はナトリウムと塩素がくっついた化合物だよ。"},
+      12:{feature:"軽くて丈夫で、燃えるとまぶしい光を出す金属。", examples:["花火","金属のかたまり"], uses:["花火","飛行機や車の部品","マグネシウム合金"], emoji:"🎆", trivia:"軽いから、のりものを軽量化する材料として活やく。"}
+    };
+
+    const periodicCore = [
+      {number:1,name:"水素",symbol:"H",mass:"1.008",category:"非金属",state:"気体"},
+      {number:2,name:"ヘリウム",symbol:"He",mass:"4.0026",category:"希ガス",state:"気体"},
+      {number:3,name:"リチウム",symbol:"Li",mass:"6.94",category:"アルカリ金属",state:"固体"},
+      {number:4,name:"ベリリウム",symbol:"Be",mass:"9.0122",category:"アルカリ土類金属",state:"固体"},
+      {number:5,name:"ホウ素",symbol:"B",mass:"10.81",category:"準金属",state:"固体"},
+      {number:6,name:"炭素",symbol:"C",mass:"12.011",category:"非金属",state:"固体"},
+      {number:7,name:"窒素",symbol:"N",mass:"14.007",category:"非金属",state:"気体"},
+      {number:8,name:"酸素",symbol:"O",mass:"15.999",category:"非金属",state:"気体"},
+      {number:9,name:"フッ素",symbol:"F",mass:"18.998",category:"ハロゲン",state:"気体"},
+      {number:10,name:"ネオン",symbol:"Ne",mass:"20.180",category:"希ガス",state:"気体"},
+      {number:11,name:"ナトリウム",symbol:"Na",mass:"22.990",category:"アルカリ金属",state:"固体"},
+      {number:12,name:"マグネシウム",symbol:"Mg",mass:"24.305",category:"アルカリ土類金属",state:"固体"},
+      {number:13,name:"アルミニウム",symbol:"Al",mass:"26.982",category:"金属",state:"固体"},
+      {number:14,name:"ケイ素",symbol:"Si",mass:"28.085",category:"準金属",state:"固体"},
+      {number:15,name:"リン",symbol:"P",mass:"30.974",category:"非金属",state:"固体"},
+      {number:16,name:"硫黄",symbol:"S",mass:"32.06",category:"非金属",state:"固体"},
+      {number:17,name:"塩素",symbol:"Cl",mass:"35.45",category:"ハロゲン",state:"気体"},
+      {number:18,name:"アルゴン",symbol:"Ar",mass:"39.948",category:"希ガス",state:"気体"},
+      {number:19,name:"カリウム",symbol:"K",mass:"39.098",category:"アルカリ金属",state:"固体"},
+      {number:20,name:"カルシウム",symbol:"Ca",mass:"40.078",category:"アルカリ土類金属",state:"固体"},
+      {number:21,name:"スカンジウム",symbol:"Sc",mass:"44.956",category:"遷移金属",state:"固体"},
+      {number:22,name:"チタン",symbol:"Ti",mass:"47.867",category:"遷移金属",state:"固体"},
+      {number:23,name:"バナジウム",symbol:"V",mass:"50.942",category:"遷移金属",state:"固体"},
+      {number:24,name:"クロム",symbol:"Cr",mass:"51.996",category:"遷移金属",state:"固体"},
+      {number:25,name:"マンガン",symbol:"Mn",mass:"54.938",category:"遷移金属",state:"固体"},
+      {number:26,name:"鉄",symbol:"Fe",mass:"55.845",category:"遷移金属",state:"固体"},
+      {number:27,name:"コバルト",symbol:"Co",mass:"58.933",category:"遷移金属",state:"固体"},
+      {number:28,name:"ニッケル",symbol:"Ni",mass:"58.693",category:"遷移金属",state:"固体"},
+      {number:29,name:"銅",symbol:"Cu",mass:"63.546",category:"遷移金属",state:"固体"},
+      {number:30,name:"亜鉛",symbol:"Zn",mass:"65.38",category:"遷移金属",state:"固体"},
+      {number:31,name:"ガリウム",symbol:"Ga",mass:"69.723",category:"金属",state:"固体"},
+      {number:32,name:"ゲルマニウム",symbol:"Ge",mass:"72.630",category:"準金属",state:"固体"},
+      {number:33,name:"ヒ素",symbol:"As",mass:"74.922",category:"準金属",state:"固体"},
+      {number:34,name:"セレン",symbol:"Se",mass:"78.971",category:"非金属",state:"固体"},
+      {number:35,name:"臭素",symbol:"Br",mass:"79.904",category:"ハロゲン",state:"液体"},
+      {number:36,name:"クリプトン",symbol:"Kr",mass:"83.798",category:"希ガス",state:"気体"},
+      {number:37,name:"ルビジウム",symbol:"Rb",mass:"85.468",category:"アルカリ金属",state:"固体"},
+      {number:38,name:"ストロンチウム",symbol:"Sr",mass:"87.62",category:"アルカリ土類金属",state:"固体"},
+      {number:39,name:"イットリウム",symbol:"Y",mass:"88.906",category:"遷移金属",state:"固体"},
+      {number:40,name:"ジルコニウム",symbol:"Zr",mass:"91.224",category:"遷移金属",state:"固体"},
+      {number:41,name:"ニオブ",symbol:"Nb",mass:"92.906",category:"遷移金属",state:"固体"},
+      {number:42,name:"モリブデン",symbol:"Mo",mass:"95.95",category:"遷移金属",state:"固体"},
+      {number:43,name:"テクネチウム",symbol:"Tc",mass:"[98]",category:"遷移金属",state:"固体"},
+      {number:44,name:"ルテニウム",symbol:"Ru",mass:"101.07",category:"遷移金属",state:"固体"},
+      {number:45,name:"ロジウム",symbol:"Rh",mass:"102.91",category:"遷移金属",state:"固体"},
+      {number:46,name:"パラジウム",symbol:"Pd",mass:"106.42",category:"遷移金属",state:"固体"},
+      {number:47,name:"銀",symbol:"Ag",mass:"107.87",category:"遷移金属",state:"固体"},
+      {number:48,name:"カドミウム",symbol:"Cd",mass:"112.41",category:"遷移金属",state:"固体"},
+      {number:49,name:"インジウム",symbol:"In",mass:"114.82",category:"金属",state:"固体"},
+      {number:50,name:"スズ",symbol:"Sn",mass:"118.71",category:"金属",state:"固体"},
+      {number:51,name:"アンチモン",symbol:"Sb",mass:"121.76",category:"準金属",state:"固体"},
+      {number:52,name:"テルル",symbol:"Te",mass:"127.60",category:"準金属",state:"固体"},
+      {number:53,name:"ヨウ素",symbol:"I",mass:"126.90",category:"ハロゲン",state:"固体"},
+      {number:54,name:"キセノン",symbol:"Xe",mass:"131.29",category:"希ガス",state:"気体"},
+      {number:55,name:"セシウム",symbol:"Cs",mass:"132.91",category:"アルカリ金属",state:"固体"},
+      {number:56,name:"バリウム",symbol:"Ba",mass:"137.33",category:"アルカリ土類金属",state:"固体"},
+      {number:57,name:"ランタン",symbol:"La",mass:"138.91",category:"ランタノイド",state:"固体"},
+      {number:58,name:"セリウム",symbol:"Ce",mass:"140.12",category:"ランタノイド",state:"固体"},
+      {number:59,name:"プラセオジム",symbol:"Pr",mass:"140.91",category:"ランタノイド",state:"固体"},
+      {number:60,name:"ネオジム",symbol:"Nd",mass:"144.24",category:"ランタノイド",state:"固体"},
+      {number:61,name:"プロメチウム",symbol:"Pm",mass:"[145]",category:"ランタノイド",state:"固体"},
+      {number:62,name:"サマリウム",symbol:"Sm",mass:"150.36",category:"ランタノイド",state:"固体"},
+      {number:63,name:"ユウロピウム",symbol:"Eu",mass:"151.96",category:"ランタノイド",state:"固体"},
+      {number:64,name:"ガドリニウム",symbol:"Gd",mass:"157.25",category:"ランタノイド",state:"固体"},
+      {number:65,name:"テルビウム",symbol:"Tb",mass:"158.93",category:"ランタノイド",state:"固体"},
+      {number:66,name:"ジスプロシウム",symbol:"Dy",mass:"162.50",category:"ランタノイド",state:"固体"},
+      {number:67,name:"ホルミウム",symbol:"Ho",mass:"164.93",category:"ランタノイド",state:"固体"},
+      {number:68,name:"エルビウム",symbol:"Er",mass:"167.26",category:"ランタノイド",state:"固体"},
+      {number:69,name:"ツリウム",symbol:"Tm",mass:"168.93",category:"ランタノイド",state:"固体"},
+      {number:70,name:"イッテルビウム",symbol:"Yb",mass:"173.05",category:"ランタノイド",state:"固体"},
+      {number:71,name:"ルテチウム",symbol:"Lu",mass:"174.97",category:"ランタノイド",state:"固体"},
+      {number:72,name:"ハフニウム",symbol:"Hf",mass:"178.49",category:"遷移金属",state:"固体"},
+      {number:73,name:"タンタル",symbol:"Ta",mass:"180.95",category:"遷移金属",state:"固体"},
+      {number:74,name:"タングステン",symbol:"W",mass:"183.84",category:"遷移金属",state:"固体"},
+      {number:75,name:"レニウム",symbol:"Re",mass:"186.21",category:"遷移金属",state:"固体"},
+      {number:76,name:"オスミウム",symbol:"Os",mass:"190.23",category:"遷移金属",state:"固体"},
+      {number:77,name:"イリジウム",symbol:"Ir",mass:"192.22",category:"遷移金属",state:"固体"},
+      {number:78,name:"白金",symbol:"Pt",mass:"195.08",category:"遷移金属",state:"固体"},
+      {number:79,name:"金",symbol:"Au",mass:"196.97",category:"遷移金属",state:"固体"},
+      {number:80,name:"水銀",symbol:"Hg",mass:"200.59",category:"遷移金属",state:"液体"},
+      {number:81,name:"タリウム",symbol:"Tl",mass:"204.38",category:"金属",state:"固体"},
+      {number:82,name:"鉛",symbol:"Pb",mass:"207.2",category:"金属",state:"固体"},
+      {number:83,name:"ビスマス",symbol:"Bi",mass:"208.98",category:"金属",state:"固体"},
+      {number:84,name:"ポロニウム",symbol:"Po",mass:"[209]",category:"金属",state:"固体"},
+      {number:85,name:"アスタチン",symbol:"At",mass:"[210]",category:"ハロゲン",state:"固体"},
+      {number:86,name:"ラドン",symbol:"Rn",mass:"[222]",category:"希ガス",state:"気体"},
+      {number:87,name:"フランシウム",symbol:"Fr",mass:"[223]",category:"アルカリ金属",state:"固体"},
+      {number:88,name:"ラジウム",symbol:"Ra",mass:"[226]",category:"アルカリ土類金属",state:"固体"},
+      {number:89,name:"アクチニウム",symbol:"Ac",mass:"[227]",category:"アクチノイド",state:"固体"},
+      {number:90,name:"トリウム",symbol:"Th",mass:"232.04",category:"アクチノイド",state:"固体"},
+      {number:91,name:"プロトアクチニウム",symbol:"Pa",mass:"231.04",category:"アクチノイド",state:"固体"},
+      {number:92,name:"ウラン",symbol:"U",mass:"238.03",category:"アクチノイド",state:"固体"},
+      {number:93,name:"ネプツニウム",symbol:"Np",mass:"[237]",category:"アクチノイド",state:"固体"},
+      {number:94,name:"プルトニウム",symbol:"Pu",mass:"[244]",category:"アクチノイド",state:"固体"},
+      {number:95,name:"アメリシウム",symbol:"Am",mass:"[243]",category:"アクチノイド",state:"固体"},
+      {number:96,name:"キュリウム",symbol:"Cm",mass:"[247]",category:"アクチノイド",state:"固体"},
+      {number:97,name:"バークリウム",symbol:"Bk",mass:"[247]",category:"アクチノイド",state:"固体"},
+      {number:98,name:"カリホルニウム",symbol:"Cf",mass:"[251]",category:"アクチノイド",state:"固体"},
+      {number:99,name:"アインスタイニウム",symbol:"Es",mass:"[252]",category:"アクチノイド",state:"固体"},
+      {number:100,name:"フェルミウム",symbol:"Fm",mass:"[257]",category:"アクチノイド",state:"固体"},
+      {number:101,name:"メンデレビウム",symbol:"Md",mass:"[258]",category:"アクチノイド",state:"固体"},
+      {number:102,name:"ノーベリウム",symbol:"No",mass:"[259]",category:"アクチノイド",state:"固体"},
+      {number:103,name:"ローレンシウム",symbol:"Lr",mass:"[266]",category:"アクチノイド",state:"固体"},
+      {number:104,name:"ラザホージウム",symbol:"Rf",mass:"[267]",category:"遷移金属",state:"固体"},
+      {number:105,name:"ドブニウム",symbol:"Db",mass:"[268]",category:"遷移金属",state:"固体"},
+      {number:106,name:"シーボーギウム",symbol:"Sg",mass:"[269]",category:"遷移金属",state:"固体"},
+      {number:107,name:"ボーリウム",symbol:"Bh",mass:"[270]",category:"遷移金属",state:"固体"},
+      {number:108,name:"ハッシウム",symbol:"Hs",mass:"[269]",category:"遷移金属",state:"固体"},
+      {number:109,name:"マイトネリウム",symbol:"Mt",mass:"[278]",category:"遷移金属",state:"固体"},
+      {number:110,name:"ダームスタチウム",symbol:"Ds",mass:"[281]",category:"遷移金属",state:"固体"},
+      {number:111,name:"レントゲニウム",symbol:"Rg",mass:"[282]",category:"遷移金属",state:"固体"},
+      {number:112,name:"コペルニシウム",symbol:"Cn",mass:"[285]",category:"遷移金属",state:"固体"},
+      {number:113,name:"ニホニウム",symbol:"Nh",mass:"[286]",category:"金属",state:"固体"},
+      {number:114,name:"フレロビウム",symbol:"Fl",mass:"[289]",category:"金属",state:"固体"},
+      {number:115,name:"モスコビウム",symbol:"Mc",mass:"[290]",category:"金属",state:"固体"},
+      {number:116,name:"リバモリウム",symbol:"Lv",mass:"[293]",category:"金属",state:"固体"},
+      {number:117,name:"テネシン",symbol:"Ts",mass:"[294]",category:"ハロゲン",state:"固体"},
+      {number:118,name:"オガネソン",symbol:"Og",mass:"[294]",category:"希ガス",state:"気体"}
+    ];
+
+    const emojiByCategory = {
+      "非金属": "🌿",
+      "希ガス": "💫",
+      "アルカリ金属": "🔋",
+      "アルカリ土類金属": "🧱",
+      "準金属": "🔬",
+      "ハロゲン": "🧪",
+      "金属": "⚙️",
+      "遷移金属": "🛠️",
+      "ランタノイド": "🌈",
+      "アクチノイド": "☢️"
+    };
+
+    const templates = {
+      "非金属": {feature:"生き物や空気、水に深く関わる大切な元素。", examples:["空気", "自然の中"], uses:["学習実験", "化学製品", "環境の研究"]},
+      "希ガス": {feature:"とても安定していて、反応しにくい仲間。", examples:["放電ランプ", "表示灯"], uses:["照明", "分析機器", "冷却技術"]},
+      "アルカリ金属": {feature:"やわらかく、反応しやすい金属グループ。", examples:["鉱石", "塩類"], uses:["電池", "化学原料", "実験材料"]},
+      "アルカリ土類金属": {feature:"軽くて利用範囲が広い、身近な金属グループ。", examples:["岩石", "ミネラル"], uses:["合金", "建材", "工業材料"]},
+      "準金属": {feature:"金属と非金属の性質をあわせもつ元素。", examples:["半導体", "ガラス"], uses:["電子部品", "材料開発", "工業原料"]},
+      "ハロゲン": {feature:"反応しやすく、化合物として活やくする元素。", examples:["消毒剤", "薬品"], uses:["表面加工", "化学合成", "衛生分野"]},
+      "金属": {feature:"電気や熱を伝えやすく、ものづくりに役立つ元素。", examples:["金属製品", "鉱石"], uses:["機械部品", "建築材料", "電子機器"]},
+      "遷移金属": {feature:"かたく丈夫で、工業や化学で大活躍する金属。", examples:["工具", "コイン"], uses:["合金", "触媒", "構造材料"]},
+      "ランタノイド": {feature:"磁石や発光材料など先端技術で使われる元素。", examples:["磁石", "液晶"], uses:["発光材料", "高性能磁石", "精密機器"]},
+      "アクチノイド": {feature:"多くが放射性をもち、研究で重要な元素。", examples:["研究施設", "燃料材料"], uses:["エネルギー研究", "医療研究", "基礎科学"]}
+    };
+
+    const categoryColors = {
+      "非金属": "var(--nonmetal)",
+      "希ガス": "var(--noble)",
+      "アルカリ金属": "var(--alkali)",
+      "アルカリ土類金属": "var(--alkaline)",
+      "準金属": "var(--metalloid)",
+      "ハロゲン": "var(--halogen)",
+      "金属": "var(--metal)",
+      "遷移金属": "#b4c6ff",
+      "ランタノイド": "#ffd4e5",
+      "アクチノイド": "#fecaca"
+    };
+
+    const elements = periodicCore.map((item) => {
+      const base = templates[item.category] || templates["金属"];
+      const override = detailOverrides[item.number] || {};
+      return {
+        ...item,
+        feature: override.feature || `${item.name}は${base.feature}`,
+        examples: override.examples || base.examples,
+        uses: override.uses || base.uses,
+        emoji: override.emoji || emojiByCategory[item.category] || "🧫",
+        trivia: override.trivia || `原子番号${item.number}番。${item.category}に分類される元素だよ。`
+      };
+    });
+
+    const baseFilterOrder = ["すべて", "非金属", "希ガス", "アルカリ金属", "アルカリ土類金属", "準金属", "ハロゲン"];
+    const extraFilters = [...new Set(elements.map((e) => e.category))].filter((c) => !baseFilterOrder.includes(c));
+    const filterList = [...baseFilterOrder, ...extraFilters];
+
+    const cardsEl = document.getElementById("cards");
+    const emptyEl = document.getElementById("empty");
+    const searchEl = document.getElementById("search");
+    const filtersEl = document.getElementById("filters");
+    const progressBar = document.getElementById("progressBar");
+    const topBtn = document.getElementById("toTop");
+
+
+    let currentFilter = "すべて";
+
+    function makeFilterButtons() {
+      filtersEl.innerHTML = "";
+      filterList.forEach((filter) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "filter-btn" + (filter === currentFilter ? " active" : "");
+        btn.textContent = filter;
+        btn.setAttribute("aria-label", `分類フィルター ${filter}`);
+        btn.addEventListener("click", () => {
+          currentFilter = filter;
+          makeFilterButtons();
+          renderCards();
+        });
+        filtersEl.appendChild(btn);
+      });
+    }
+
+    function createCard(item) {
+      const color = categoryColors[item.category] || "var(--all)";
+      const article = document.createElement("article");
+      article.className = "card";
+      article.style.borderColor = color;
+
+      article.innerHTML = `
+        <div class="card-inner">
+          <div class="card-head">
+            <div>
+              <p class="name">${item.name}</p>
+              <div class="symbol" aria-label="元素記号">${item.symbol}</div>
+            </div>
+            <div class="emoji" aria-hidden="true">${item.emoji}</div>
+          </div>
+
+          <div class="kv">
+            <div class="mini"><b>原子番号</b><br><span class="atom-badge" style="background:${color};">${item.number}</span></div>
+            <div class="mini"><b>原子量</b><br>${item.mass}</div>
+          </div>
+
+          <div class="tags">
+            <span class="tag" style="border-color:${color};background:color-mix(in srgb, ${color} 35%, #fff);">分類：${item.category}</span>
+            <span class="tag">状態：${item.state}</span>
+          </div>
+
+          <p class="feature"><b>特徴：</b>${item.feature}</p>
+
+          <button class="toggle" type="button" aria-label="${item.name}の詳細を開く">くわしく見る ▼</button>
+          <div class="details" aria-hidden="true">
+            <div class="detail-box">
+              <div><b>身近な例：</b>${item.examples.join("、")}</div>
+              <div><b>使われ方：</b>
+                <ul class="list">${item.uses.map(use => `<li>${use}</li>`).join("")}</ul>
+              </div>
+              <div><b>豆知識：</b>${item.trivia}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const btn = article.querySelector(".toggle");
+      const details = article.querySelector(".details");
+
+      btn.addEventListener("click", () => {
+        const isOpen = details.classList.toggle("open");
+        details.setAttribute("aria-hidden", String(!isOpen));
+        btn.textContent = isOpen ? "とじる ▲" : "くわしく見る ▼";
+        btn.setAttribute("aria-label", `${item.name}の詳細を${isOpen ? "閉じる" : "開く"}`);
+      });
+
+      return article;
+    }
+
+    function renderCards() {
+      const q = searchEl.value.trim().toLowerCase();
+      const filtered = elements.filter((el) => {
+        const matchFilter = currentFilter === "すべて" || el.category === currentFilter;
+        const matchSearch = !q || el.name.toLowerCase().includes(q) || el.symbol.toLowerCase().includes(q) || el.category.toLowerCase().includes(q);
+        return matchFilter && matchSearch;
+      });
+
+      cardsEl.innerHTML = "";
+      filtered.forEach((item) => cardsEl.appendChild(createCard(item)));
+      emptyEl.hidden = filtered.length > 0;
+    }
+
+    function updateProgress() {
+      const top = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? (top / total) * 100 : 0;
+      progressBar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+
+      if (top > 360) {
+        topBtn.classList.add("show");
+      } else {
+        topBtn.classList.remove("show");
+      }
+    }
+
+    function setupReveal() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll(".reveal").forEach((sec) => io.observe(sec));
+    }
+
+    searchEl.addEventListener("input", renderCards);
+    topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+
+    makeFilterButtons();
+    renderCards();
+    setupReveal();
+    updateProgress();
+  </script>
+</body>
+</html>
